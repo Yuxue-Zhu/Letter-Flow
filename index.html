@@ -1,0 +1,64 @@
+ <!-- 
+     ! tab: create html file templet
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letters</title>
+    <style>
+        *{margin:0;padding:0;}
+        html, body{
+            height: 100%;
+        }
+        
+        canvas{
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas>
+
+    </canvas>
+
+    <script>
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerWidth;
+        var fontSize = winWidth/50|0;
+        var fontNum = 50;
+        // record length of each column
+        var index = [];
+        for (var i = 0; i<fontNum; i++){
+            index[i]=1;
+        }
+
+        canvas.width=winWidth;
+        canvas.height=winHeight;
+
+        !function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.05)';
+            ctx.fillRect(0,0,winWidth,winHeight);
+            for (var i = 0; i<fontNum; i++){
+                var char = (Math.random()*36 | 0).toString(36)
+                ctx.font = `${fontSize}px Arial bold`;
+                ctx.fillStyle = '#0c3';
+                ctx.fillText(char,fontSize*i,index[i]++*fontSize);// width, height
+                if (index[i]*fontSize>winHeight && Math.random()>0.99){
+                    index[i] = 1;
+                }
+            }
+            
+            setTimeout(draw, 30)
+        }()
+
+     
+    </script>
+</body>
+
+</html>
